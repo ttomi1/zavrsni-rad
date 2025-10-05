@@ -1,0 +1,21 @@
+<form (submit)="submitPost(); $event.preventDefault()" class="card p-3 shadow-sm mb-4">
+  <div class="mb-3">
+    <textarea
+      [(ngModel)]="text"
+      name="text"
+      class="form-control"
+      placeholder="Write something..."
+      rows="3"
+      required>
+    </textarea>
+  </div>
+
+  <div class="mb-3 d-flex align-items-center gap-3">
+    <input
+      type="file"
+      (change)="onFileSelected($event)"
+      accept="image/*"
+      class="form-control form-control-sm w-auto">
+    <button type="submit" class="btn btn-primary btn-sm">Post</button>
+  </div>
+</form>

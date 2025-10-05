@@ -1,0 +1,69 @@
+
+.card {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+
+.card-body {
+  padding: 16px;
+}
+
+
+.author-link {
+  color: #333;
+  font-weight: 600;
+}
+
+.author-link:hover {
+  color: #ff6600;
+}
+
+
+.btn-outline-danger {
+  color: #ff6600;
+  border-color: #ff6600;
+}
+
+.btn-outline-danger:hover {
+  background-color: #ff6600;
+  color: white;
+  border-color: #ff6600;
+}
+
+
+.btn-link i {
+  color: #ff6600;
+}
+
+
+.btn-primary {
+  background-color: #ff6600;
+  border-color: #ff6600;
+}
+
+.btn-primary:hover {
+  background-color: #e65c00;
+  border-color: #e65c00;
+}
+
+
+.form-control, .form-control-sm {
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.form-control:focus, .form-control-sm:focus {
+  border-color: #ff6600;
+  box-shadow: 0 0 0 0.2rem rgba(255,102,0,.25);
+}
+
+
+.btn-sm.btn-outline-danger i {
+  color: #ff6600;
+}
+
+.btn-sm.btn-outline-danger:hover i {
+  color: white;
+}

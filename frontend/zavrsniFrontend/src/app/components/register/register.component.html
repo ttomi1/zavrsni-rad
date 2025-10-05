@@ -1,0 +1,54 @@
+<div class="register-container">
+  <div class="register-card">
+    <h2>Register</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input id="username" type="text" formControlName="username" [class.invalid]="hasError('username', 'required')">
+        <div class="invalid-feedback" *ngIf="hasError('username', 'required')">
+          Username is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input id="firstName" type="text" formControlName="firstName" [class.invalid]="hasError('firstName', 'required')">
+        <div class="invalid-feedback" *ngIf="hasError('firstName', 'required')">
+          First name is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input id="lastName" type="text" formControlName="lastName" [class.invalid]="hasError('lastName', 'required')">
+        <div class="invalid-feedback" *ngIf="hasError('lastName', 'required')">
+          Last name is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" [class.invalid]="hasError('email', 'required') || hasError('email', 'email')">
+        <div class="invalid-feedback" *ngIf="hasError('email', 'required')">Email is required.</div>
+        <div class="invalid-feedback" *ngIf="hasError('email', 'email')">Enter a valid email.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" [class.invalid]="hasError('password', 'required') || hasError('password', 'minlength')">
+        <div class="invalid-feedback" *ngIf="hasError('password', 'required')">Password is required.</div>
+        <div class="invalid-feedback" *ngIf="hasError('password', 'minlength')">Password must be at least 6 characters.</div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+      <button type="submit" class="btn-primary full-width">Register</button>
+
+      <div class="text-center mt-3">
+        <a routerLink="/login">Already have an account? Login</a>
+      </div>
+    </form>
+  </div>
+</div>

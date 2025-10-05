@@ -1,0 +1,26 @@
+<nav *ngIf="isLoggedIn" class="navbar navbar-expand-lg navbar-light bg-light border-bottom mb-4 shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-4" routerLink="/"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav align-items-center">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link" routerLink="/feed">Feed</a>
+        </li>
+        <li class="nav-item" *ngIf="myUsername">
+          <a class="nav-link" [routerLink]="['/profile', myUsername]">Profile</a>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-danger btn-sm ms-3" (click)="logout()">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

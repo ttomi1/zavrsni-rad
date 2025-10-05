@@ -1,0 +1,81 @@
+<div *ngFor="let post of posts" class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div class="d-flex align-items-center gap-2">
+        <img *ngIf="post.authorImageUrl"
+             [src]="post.authorImageUrl | fullImageUrl"
+             alt="{{ post.authorUsername }}"
+             class="rounded-circle"
+             width="40" height="40">
+        <a [routerLink]="['/profile', post.authorUsername]" class="author-link">
+          {{ post.authorUsername }}
+        </a>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <small class="text-muted">{{ post.createdAt | date:'short' }}</small>
+        <!-- show only if the post is yours -->
+        <button *ngIf="post.authorUsername === currentUsername"
+                class="btn btn-sm btn-outline-danger"
+                (click)="removePost(post.id)">
+          Delete
+        </button>
+      </div>
+    </div>
+
+    <img *ngIf="post.imageUrl"
+         [src]="'http://localhost:8080' + post.imageUrl"
+         class="img-fluid rounded mt-2">
+
+    <p class="mt-2">{{ post.text }}</p>
+
+    <button (click)="toggleLike(post)" class="btn btn-link p-0" style="text-decoration: none;">
+      <ng-container *ngIf="post.likedByMe; else notLiked">
+        <i class="fa-solid fa-heart fa-2xl" style="color: #ff0000;"></i>
+      </ng-container>
+      <ng-template #notLiked>
+        <i class="fa-regular fa-heart fa-2xl" style="color: #ff0000;"></i>
+      </ng-template>
+      <span style="font-size: 1.2rem; color: black;">{{ post.likesCount || 0 }}</span>
+    </button>
+
+    <!-- Comments list -->
+    <div *ngFor="let comment of (post.comments || []) | slice:0:(post.showAllComments ? post.comments?.length : 2)" class="d-flex gap-2 mb-1 align-items-start">
+      <img *ngIf="comment.authorImageUrl"
+           [src]="comment.authorImageUrl | fullImageUrl"
+           alt="{{ comment.authorUsername }}"
+           class="rounded-circle"
+           width="30" height="30">
+      <div class="flex-grow-1">
+        <strong>{{ comment.authorUsername }}</strong>
+        <p class="mb-0">{{ comment.text }}</p>
+        <small class="text-muted">{{ comment.createdAt | date:'short' }}</small>
+      </div>
+
+      <button *ngIf="comment.authorUsername === currentUsername"
+              class="btn btn-sm btn-outline-danger"
+              (click)="removeComment(post, comment.id)">
+        <i class="fa-solid fa-trash fa-2xl" style="color: #000000;"></i>
+      </button>
+    </div>
+
+    <button *ngIf="(post.comments?.length || 0) > 2 && !post.showAllComments"
+            class="btn btn-sm p-0 mt-1 d-flex align-items-center gap-1"
+            (click)="post.showAllComments = true">
+      <i class="fa-solid fa-comment fa-2xl"></i> {{ post.comments?.length || 0 }}
+    </button>
+
+    <button *ngIf="post.showAllComments"
+            class="btn btn-sm p-0 mt-1 d-flex align-items-center gap-1"
+            (click)="post.showAllComments = false">
+      <i class="fa-solid fa-comment fa-2xl"></i> {{ post.comments?.length || 0 }}
+    </button>
+
+    <!-- Add comment -->
+    <form (submit)="submitComment(post); $event.preventDefault()" class="d-flex gap-2 mt-2">
+      <input type="text" [(ngModel)]="post.newCommentText" name="comment" class="form-control form-control-sm" placeholder="Write a comment..." required>
+      <button class="btn btn-primary btn-sm" type="submit">Send</button>
+    </form>
+
+  </div>
+</div>
